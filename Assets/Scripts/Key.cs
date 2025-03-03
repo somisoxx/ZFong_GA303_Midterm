@@ -21,7 +21,7 @@ public class Key : MonoBehaviour
         }
         else if (keyColor == KeyColor.Blue)
         {
-            this.GetComponent<MeshRenderer>().material.color = Color.yellow;
+            this.GetComponent<MeshRenderer>().material.color = Color.blue; //wrong corrosponding material color
         }
         else if (keyColor == KeyColor.Red)
         {
@@ -40,7 +40,7 @@ public class Key : MonoBehaviour
                 if (player.hasGreenKey == false)
                 {
                     player.hasGreenKey = true;
-                    Destroy(player.gameObject);
+                    Destroy(gameObject); //deleted player, otherwise deletes player camera
                 }
             }
             else if (keyColor == KeyColor.Blue)
@@ -51,9 +51,9 @@ public class Key : MonoBehaviour
                     Destroy(gameObject);
                 }
             }
-            else if (keyColor == KeyColor.Blue)
+            else if (keyColor == KeyColor.Red) //repeating keycolor
             {
-                if (player.hasRedKey == true)
+                if (player.hasRedKey == false) //changed from true to false
                 {
                     player.hasRedKey = true;
                     Destroy(gameObject);
