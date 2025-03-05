@@ -10,11 +10,12 @@ public enum TargetType
 }
 
 public class Target : MonoBehaviour
-{ 
+{
     public AudioSource targetSound;
     public TargetType targetType;
     private Vector3 startingPosition;
     public float maxMovingTargetRange = 3f;
+    
 
     void Start()
     {
@@ -26,7 +27,7 @@ public class Target : MonoBehaviour
         }
         else if (targetType == TargetType.Movable)
         {
-            this.GetComponent<MeshRenderer>().material.color = Color.red;
+            this.GetComponent<MeshRenderer>().material.color = Color.cyan; //changed to color not currently used in scene
         }
         else if (targetType == TargetType.DestroyableWithSound)
         {
@@ -36,16 +37,16 @@ public class Target : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Ballet")
+        if (other.gameObject.tag == "Bullet") //changed tag "Ballet" to "Bullet"
         {
-            
-            
-            if(targetType == TargetType.Destroyable)
+
+
+            if (targetType == TargetType.Destroyable)
             {
                 gameObject.SetActive(false);
 
             }
-            else if(targetType == TargetType.Movable)
+            else if (targetType == TargetType.Movable)
             {
                 float randomY = Random.Range(-maxMovingTargetRange, maxMovingTargetRange);
                 float randomZ = Random.Range(-maxMovingTargetRange, maxMovingTargetRange);
@@ -57,6 +58,8 @@ public class Target : MonoBehaviour
                 targetSound.Play();
                 gameObject.SetActive(false);
             }
+            Destroy(other.gameObject);
         }
     }
 }
+
